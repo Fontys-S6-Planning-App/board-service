@@ -13,7 +13,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: myAllowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("*")
+            policy.WithOrigins("http://localhost:4200", "https://planning-app.marktempelman.duckdns.org")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
