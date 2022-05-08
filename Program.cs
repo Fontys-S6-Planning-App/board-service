@@ -2,6 +2,7 @@ using board_service.DBContexts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,24 +36,17 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(o =>
 {
-    o.Authority = builder.Configuration["Jwt:Authority"];
-    o.Audience = builder.Configuration["Jwt:Audience"];
-    o.Events = new JwtBearerEvents()
+    o.RequireHttpsMetadata = bool.Parse(builder.Configuration["Authentication:RequireHttpsMetadata"]);
+    o.Authority = builder.Configuration["Authentication:Authority"];
+    o.IncludeErrorDetails = bool.Parse(builder.Configuration["Authentication:IncludeErrorDetails"]);
+    o.TokenValidationParameters = new TokenValidationParameters()
     {
-        OnAuthenticationFailed = c =>
-        {
-            if (!c.Response.HasStarted)
-            {
-                c.NoResult();
-                c.Response.StatusCode = 500;
-                c.Response.ContentType = "text/plain";
-                return c.Response.WriteAsync("An error occured processing your authentication.");
-            }
-            else
-            {
-                return c.Response.WriteAsync(string.Empty);
-            }
-        }
+        ValidateAudience = bool.Parse(builder.Configuration["Authentication:ValidateAudience"]),
+        ValidAudience = builder.Configuration["Authentication:ValidAudience"],
+        ValidateIssuerSigningKey = bool.Parse(builder.Configuration["Authentication:ValidateIssuerSigningKey"]),
+        ValidateIssuer = bool.Parse(builder.Configuration["Authentication:ValidateIssuer"]),
+        ValidIssuer = builder.Configuration["Authentication:ValidIssuer"],
+        ValidateLifetime = bool.Parse(builder.Configuration["Authentication:ValidateLifetime"]),
     };
 });
 
