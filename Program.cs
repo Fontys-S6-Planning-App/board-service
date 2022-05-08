@@ -15,7 +15,8 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("http://localhost:4200", "https://planning-app.marktempelman.duckdns.org")
                 .AllowAnyHeader()
-                .AllowAnyMethod();
+                .AllowAnyMethod()
+                .AllowCredentials();
         });
 });
 
