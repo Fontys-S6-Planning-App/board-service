@@ -9,7 +9,7 @@ using board_service.DBContexts;
 
 namespace board_service.Migrations
 {
-    [DbContext(typeof(MyDbContext))]
+    [DbContext(typeof(BoardContext))]
     [Migration("20220508095230_test")]
     partial class test
     {

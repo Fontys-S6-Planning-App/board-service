@@ -1,4 +1,6 @@
+using board_service;
 using board_service.DBContexts;
+using board_service.Repositories.Interfaces;
 using board_service.Services;
 using board_service.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
@@ -24,11 +26,13 @@ builder.Services.AddCors(options =>
 
 // set connection string
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<MyDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+builder.Services.AddDbContext<BoardContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 // Add services to the container.
-builder.Services.AddSingleton<IBoardService, BoardService>();
+builder.Services.AddTransient<IBoardService, BoardService>();
+builder.Services.AddTransient<IBoardRepository, BoardRepository>();
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

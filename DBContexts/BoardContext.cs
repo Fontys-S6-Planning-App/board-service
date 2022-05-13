@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace board_service.DBContexts;
 
-public class MyDbContext : DbContext
+public class BoardContext : DbContext
 {
     public DbSet<Board> Boards { get; set; }
     
-    public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
+    public BoardContext(DbContextOptions<BoardContext> options) : base(options)
     {
     }
     

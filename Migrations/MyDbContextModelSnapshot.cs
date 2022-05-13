@@ -8,7 +8,7 @@ using board_service.DBContexts;
 
 namespace board_service.Migrations
 {
-    [DbContext(typeof(MyDbContext))]
+    [DbContext(typeof(BoardContext))]
     partial class MyDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
