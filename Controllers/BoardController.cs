@@ -1,5 +1,6 @@
 ﻿using board_service.DBContexts;
 using board_service.Models;
+using board_service.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,17 +12,17 @@ namespace board_service.Controllers;
 [Route("board")]
 public class BoardController : ControllerBase
 {
-    private MyDbContext _myDbContext;
+    private readonly IBoardService _boardService;
     
-    public BoardController(MyDbContext myDbContext)
+    public BoardController(IBoardService boardService)
     {
-        _myDbContext = myDbContext;
+        _boardService = boardService;
     }
-    
+
     [HttpGet]
     public IList<Board> Get()
     {
-        return _myDbContext.Boards.ToList();
+        return _boardService.GetAllBoards();
     }
     
 }
