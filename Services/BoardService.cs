@@ -16,4 +16,19 @@ public class BoardService : IBoardService
     {
         return _boardRepository.GetAll();
     }
+
+    public void AddBoard(Board board)
+    {
+        _boardRepository.Add(board);
+    }
+
+    public void UpdateBoard(Board board)
+    {
+        _boardRepository.Update(board);
+    }
+
+    public void DeleteBoard(int id)
+    {
+        _boardRepository.Delete(id);
+    }
 }

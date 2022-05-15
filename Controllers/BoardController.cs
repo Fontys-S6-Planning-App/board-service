@@ -25,4 +25,21 @@ public class BoardController : ControllerBase
         return _boardService.GetAllBoards();
     }
     
+    [HttpPost]
+    public void Post([FromBody] Board board)
+    {
+        _boardService.AddBoard(board);
+    }
+    
+    [HttpPut]
+    public void Put([FromBody] Board board)
+    {
+        _boardService.UpdateBoard(board);
+    }
+    
+    [HttpDelete("{id}")]
+    public void Delete(int id)
+    {
+        _boardService.DeleteBoard(id);
+    }
 }
