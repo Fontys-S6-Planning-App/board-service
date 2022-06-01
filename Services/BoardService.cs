@@ -1,4 +1,5 @@
-﻿using board_service.Models;
+﻿using board_service.Messaging;
+using board_service.Models;
 using board_service.Repositories.Interfaces;
 using board_service.Services.Interfaces;
 
@@ -29,6 +30,7 @@ public class BoardService : IBoardService
 
     public void DeleteBoard(int id)
     {
+        Send.SendMessage("delete board", id.ToString());
         _boardRepository.Delete(id);
     }
 }
